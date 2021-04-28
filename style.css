@@ -24,11 +24,11 @@ a {
     text-decoration: underline;
     border: 1px #fefff3;
     border-radius: 0.01em;
-    color: cyan;
+    color: lightgreen;
 }
 
 a:visited {
-    color: darkcyan;
+    color: gray;
     text-decoration: none;
 }
 
