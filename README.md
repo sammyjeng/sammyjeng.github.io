@@ -1,1 +1,1 @@
-I minimalist blog generated using [blogit](https://pedantic.software/git/blogit/).
+A minimalist blog generated using [blogit](https://pedantic.software/git/blogit/).
