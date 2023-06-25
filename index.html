@@ -1,43 +1,167 @@
 <!DOCTYPE html>
-<html lang=en>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
-        <link rel="stylesheet" href="./style.css">
-        <title>пустота</title>
-        <meta name="description" content="LinuxSauce - Tastes linux-y."
-    </head>
-    <body>
-<div class="banner">
-    <hr/>
-</div>
-<p><i>Tags:
-<a href="@Bigtech.html">Bigtech</a>, <a href="@CTF.html">CTF</a>, <a href="@Digital-Privacy.html">Digital-Privacy</a>, <a href="@FOSS.html">FOSS</a>, <a href="@GNU+Linux.html">GNU+Linux</a>, <a href="@Internet.html">Internet</a>, <a href="@OpenSource.html">OpenSource</a>, <a href="@RickandMorty.html">RickandMorty</a>, <a href="@Sarcasm.html">Sarcasm</a>, <a href="@Walkthrough.html">Walkthrough</a>, <a href="@WebChallenge.html">WebChallenge</a>, <a href="@Writeup.html">Writeup</a></i></p>
-<h2>Articles</h2>
-<ul id=artlist>
-<li><a href="FOSS.html">FOSS</a></li>
-<li><a href="how-not-to-use-the-internet.html">How NOT To Use The Internet.</a></li>
-<li><a href="Rick-and-Morty-ctf.html">PICKLE RICK CTF</a></li>
-</ul>
-<h2>
-	This blog has been shutdown because of heavy metal poisoning.
-</h2>
-<p>
-</p>
-<h2>
-You can find me at
-</h2>
-<p><a href="https://github.com/sammyjeng">Github</a></p>
-<p><a href="https://www.linkedin.com/in/samartha-j-v/">Linkedin</a></p>
-<p><a href="https://sammyjeng.wordpress.com">Archive</a></p>
-<p><a href="https://unsplash.com/@sammyjeng">Unsplash</a></p>
-<footer>
-    <hr/>
-    <a href=".">homepage</a>
-    <a href="./rss.xml">RSS</a>
-    <a href="./atom.xml">atom</a>
-    <br>
-    <p><small>Powered by <a href="https://pedantic.software/git/blogit">blogit</a></small></p>
-</footer>
-</body></html>
+<html>
+<head>
+  <title>no-thing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <div id="clock-container">
+    <div id="clock"></div>
+    <script>
+          console.log('Stop looking into the console for too long, you might turn into a hacker');
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #header {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #content {
+      font-size: 18px;
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+
+    #clock-container {
+      background-color: #222;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    #clock {
+      font-family: 'Fira Code', Arial, sans-serif;
+      font-size: 48px;
+      color: #FF5500;
+      animation: blink 1s infinite;
+    }
+
+
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    #footer {
+      font-size: 14px;
+      color: #999;
+    }
+
+    #ip-table {
+      margin: 0 auto;
+      width: 400px;
+      border-collapse: collapse;
+    }
+
+    #ip-table th,
+    #ip-table td {
+      padding: 8px;
+      border: 1px solid #fff;
+    }
+
+    #ip-table th {
+      background-color: #444;
+    }
+
+    #ip-table td {
+      background-color: #222;
+    }
+
+    @media (max-width: 600px) {
+        #header {
+          font-size: 20px;
+        }
+  </style>
+  <script>
+    // Ziet
+    function getCurrentTime() {
+      const currentTime = new Date();
+      const hours = formatDigits(currentTime.getHours());
+      const minutes = formatDigits(currentTime.getMinutes());
+      const seconds = formatDigits(currentTime.getSeconds());
+      return `${hours}:${minutes}:${seconds}`;
+    }
+
+    function formatDigits(value) {
+      return value < 10 ? `0${value}` : value;
+    }
+
+    function updateClock() {
+      const clock = document.getElementById('clock');
+      clock.textContent = getCurrentTime();
+    }
+
+    function getIPAddress() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://ifconfig.me/ip', true);
+//      forbidden headers X))
+//     xhr.setRequestHeader('User-Agent', 'curl/7.4.2');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const ipAddress = xhr.responseText.trim();
+          showIPAddress(ipAddress);
+        }
+      };
+      xhr.send();
+    }
+
+    function showIPAddress(ipAddress) {
+      const currentTime = new Date().toLocaleString();
+      const table = document.getElementById('ip-table');
+      const row = table.insertRow(-1);
+      const cell1 = row.insertCell(0);
+      const cell2 = row.insertCell(1);
+      cell1.textContent = ipAddress;
+      cell2.textContent = currentTime;
+    }
+
+    setInterval(updateClock, 1000);
+    getIPAddress();
+  </script>
+</head>
+<body>
+  <div id="header">
+    <h1>no-thing</h1>
+  </div>
+
+  <div id="content">
+    <p>Welcome to the no-thing blog. Here, we explore no-thing.</p>
+  </div>
+
+
+  <table id="ip-table">
+    <thead>
+      <tr>
+        <th>Your IP Address (May be)</th>
+        <th>Time of Visit</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  </div>
+  <div id="footer">
+    <p>&copy; 2023 no-thing. No rights reserved.</p>
+  </div>
+</body>
+</html>
