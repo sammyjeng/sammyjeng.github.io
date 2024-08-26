@@ -1,0 +1,100 @@
+html {
+    background: #262626;
+}
+
+::selection {
+    color: black;
+    background: white;
+}
+
+body {
+    border: solid gray;
+    border-radius: 0.69em;
+    background: #090406;
+    color: #fefff3;
+    max-width: 800px;
+    margin: auto;
+    padding: 0 16px;
+    margin-bottom: 500px;
+    font-family: Verdana;
+    font-size: medium;
+}
+
+a {
+    text-decoration: underline;
+    border: 1px #fefff3;
+    border-radius: 0.01em;
+    color: lightgreen;
+}
+
+a:visited {
+    color: gray;
+    text-decoration: none;
+}
+
+
+a:hover {
+    /* border:1px solid lime;  */
+    border: 1px #03c03c;
+    border-radius: 0.1em;
+    background: white;
+    color: #000000;
+    text-decoration: none;
+}
+
+h1 {
+    text-align: center;
+    color: lightyellow;
+}
+
+h2 {
+    color: lightyellow;
+}
+
+h3 {
+    text-align: center;
+    color: lightyellow;
+}
+
+footer {
+    text-align: center;
+}
+
+img {
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    display: block;
+}
+
+pre {
+    border-color: #404040;
+    border-style: solid;
+    border-radius: 0.69em;
+    padding: 15px;
+    overflow: auto;
+}
+
+code {
+    overflow-wrap: break-word;
+    color: lime;
+}
+
+@media print {
+    a[href] {
+        text-decoration: none;
+        color: black;
+    }
+}
+
+@media (min-width: 55em) {
+    #artlist {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 100em) {
+    #artlist {
+        column-count: 3;
+    }
+}

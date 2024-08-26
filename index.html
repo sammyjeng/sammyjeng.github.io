@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>no-thing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=0.9">
+  <div id="clock-container">
+    <div id="clock"></div>
+    <script>
+          console.log('Stop looking into the console for too long, you might turn into a hacker');
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #header {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #content {
+      font-size: 18px;
+      line-height: 1.5;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    #clock-container {
+      background-color: #222;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    #clock {
+      font-family: 'Fira Code', Arial, sans-serif;
+      font-size: 48px;
+      color: #FF5500;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.75;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    #footer {
+      font-size: 14px;
+      color: #999;
+      text-align: center;
+    }
+
+    #ip-table {
+      margin: 0 auto;
+      width: 400px;
+      border-collapse: collapse;
+    }
+
+    #ip-table th,
+    #ip-table td {
+      padding: 8px;
+      border: 1px solid #fff;
+    }
+
+    #ip-table th {
+      background-color: #444;
+    }
+
+    #ip-table td {
+      background-color: #222;
+    }
+
+    @media (max-width: 600px) {
+        #header {
+          font-size: 20px;
+        }
+      }
+  </style>
+  <script>
+    // Zeit
+    function getCurrentTime() {
+      const currentTime = new Date();
+      const hours = formatDigits(currentTime.getHours());
+      const minutes = formatDigits(currentTime.getMinutes());
+      const seconds = formatDigits(currentTime.getSeconds());
+      return `${hours}:${minutes}:${seconds}`;
+    }
+
+    function formatDigits(value) {
+      return value < 10 ? `0${value}` : value;
+    }
+
+    function updateClock() {
+      const clock = document.getElementById('clock');
+      clock.textContent = getCurrentTime();
+    }
+
+    setInterval(updateClock, 1000);
+  </script>
+</head>
+<body>
+  <div id="header">
+    <h1>no-thing</h1>
+  </div>
+  <div id="content">
+    <p>Let's explore no-thing.</p>
+  </div>
+  </table>
+  </div>
+  <div id="footer">
+    <p>&copy; 2023-2024 no-thing. No rights reserved.</p>
+  </div>
+</body>
+</html>
