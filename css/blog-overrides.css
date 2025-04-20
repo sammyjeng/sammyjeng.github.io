@@ -1,0 +1,15 @@
+/* Override the border and background from style.css */
+body {
+  border: none;
+  background-color: #111;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  max-width: none;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

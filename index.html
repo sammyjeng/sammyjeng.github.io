@@ -7,7 +7,7 @@
     <div id="clock"></div>
     <script>
           console.log('Stop looking into the console for too long, you might turn into a hacker');
-  </script>
+    </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
 
@@ -22,6 +22,31 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+    }
+
+    #nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #222;
+      display: flex;
+      justify-content: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #444;
+      z-index: 100;
+    }
+
+    #nav-bar a {
+      color: #FF5500;
+      text-decoration: none;
+      margin: 0 15px;
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+    }
+
+    #nav-bar a:hover {
+      text-decoration: underline;
     }
 
     #header {
@@ -92,6 +117,13 @@
         #header {
           font-size: 20px;
         }
+        #nav-bar {
+          padding: 5px 0;
+        }
+        #nav-bar a {
+          margin: 0 8px;
+          font-size: 12px;
+        }
       }
   </style>
   <script>
@@ -117,16 +149,19 @@
   </script>
 </head>
 <body>
+  <div id="nav-bar">
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blog</a>
+    <a href="about.html">About</a>
+  </div>
+
   <div id="header">
     <h1>no-thing</h1>
-  </div>
-  <div id="content">
-    <p>Let's explore no-thing.</p>
   </div>
   </table>
   </div>
   <div id="footer">
-    <p>&copy; 2023-2024 no-thing. No rights reserved.</p>
+    <p>&copy; 2023-2089 no-thing. No rights reserved.</p>
   </div>
 </body>
 </html>

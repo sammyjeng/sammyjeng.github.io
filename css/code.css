@@ -1,0 +1,13 @@
+/* Code styles only, extracted from original style.css */
+pre {
+    border-color: #404040;
+    border-style: solid;
+    border-radius: 0.69em;
+    padding: 15px;
+    overflow: auto;
+}
+
+code {
+    overflow-wrap: break-word;
+    color: lime;
+}

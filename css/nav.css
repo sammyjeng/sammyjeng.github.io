@@ -1,0 +1,27 @@
+/* Navigation bar styles only */
+#nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #222;
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #444;
+  z-index: 100;
+}
+
+#nav-bar a {
+  color: #FF5500;
+  text-decoration: none;
+  margin: 0 15px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+#nav-bar a:hover {
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+}
